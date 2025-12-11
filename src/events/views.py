@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from django.core.mail import send_mail
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 
 from .models import Event
 from .serialisers import EventSerializer
@@ -39,12 +40,7 @@ class EventRegisterView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk, *args, **kwargs):
-        try:
-            event = Event.objects.get(pk=pk)
-        except Event.DoesNotExist:
-            return Response(
-                {"error": "Event not found"}, status=status.HTTP_404_NOT_FOUND
-            )
+        event = get_object_or_404(Event, pk=pk)
 
         event.participants.add(request.user)
         send_notification(event, request.user.email)
