@@ -4,6 +4,9 @@ To run project
 ```
 git clone https://github.com/localhost128/event-management.git
 cd event-management
+```
+make .env file from .env.example
+```
 docker build . -t event-management
 docker volume create django_db
 docker run --rm -v django_db:/app event-management python src/manage.py migrate
