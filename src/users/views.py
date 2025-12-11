@@ -20,7 +20,8 @@ class UserCreateView(CreateAPIView):
 class UserRetriveView(APIView):
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
 
     def get(self, request):
-        serializer = UserSerializer(request.user)
+        serializer = self.serializer_class(request.user)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
