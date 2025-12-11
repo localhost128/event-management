@@ -1,6 +1,7 @@
-from rest_framework import generics, status
+from rest_framework import generics, status, filters
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Event
 from .serialisers import EventSerializer
@@ -11,6 +12,9 @@ class EventListView(generics.ListCreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    filterset_fields = ["date", "organizer", "location"]
+    search_fields = ["title", "description"]
 
 
 class EventRetrieveUpdateView(generics.RetrieveUpdateDestroyAPIView):

@@ -9,4 +9,3 @@ docker volume create django_db
 docker run --rm -v django_db:/app event-management python src/manage.py migrate
 docker run -p 8000:8000 -v django_db:/app event-management
 ```
-```
