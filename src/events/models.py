@@ -13,3 +13,5 @@ class Event(models.Model):
     date = models.DateField()
     location = models.CharField(max_length=100)
     organizer = models.ForeignKey(User, related_name="events", on_delete=models.PROTECT)
+
+    participants = models.ManyToManyField(User, related_name="registered_events")

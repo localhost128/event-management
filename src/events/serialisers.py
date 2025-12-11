@@ -3,11 +3,11 @@ from rest_framework import serializers
 from .models import Event
 
 
-class EventSerialiser(serializers.ModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = "__all__"
-        read_only_fields = ["id", "organizer"]
+        read_only_fields = ["id", "organizer", "registered_users"]
 
     def create(self, validated_data):
         # Assign the user from request
